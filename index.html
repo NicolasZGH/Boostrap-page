@@ -20,7 +20,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#inicio"><i class="fas fa-seedling me-2"></i>Mateando</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-label="Alternar navegación">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -47,7 +47,7 @@
 </nav>
 
 <!-- CAROUSEL (INICIO) -->
-<div id="inicio">
+<div id="inicio" role="main">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="true" data-bs-interval="3000">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
@@ -155,7 +155,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mates Tradicionales</h5>
                         <p class="card-text">Mates de calabaza curados artesanalmente, perfectos para los amantes de la tradición. Cada uno único y especial.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver Colección</a>
+                        <a href="#" class="btn btn-outline-primary" aria-label="Ver colección de mates tradicionales">Ver Colección</a>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mates de Madera</h5>
                         <p class="card-text">Tallados en maderas nobles argentinas con diseños únicos. Resistentes y con un sabor incomparable.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver Colección</a>
+                        <a href="#" class="btn btn-outline-primary" aria-label="Ver colección de mates de madera">Ver Colección</a>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mates Modernos</h5>
                         <p class="card-text">Diseños contemporáneos que fusionan tradición e innovación. Perfectos para el mate urbano y moderno.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver Colección</a>
+                        <a href="#" class="btn btn-outline-primary" aria-label="Ver colección de mates modernos">Ver Colección</a>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Tradición Familiar</h3>
                         <p class="card-text">Desde 1950, nuestra familia se dedica a la elaboración artesanal de mates. Cada pieza es trabajada con amor y dedicación, manteniendo vivas las técnicas ancestrales transmitidas de generación en generación.</p>
-                        <a href="#" class="btn btn-custom">Conocer Más</a>
+                        <a href="#" class="btn btn-custom" aria-label="Conocer más sobre nuestra tradición familiar">Conocer Más</a>
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Calidad Artesanal</h3>
                         <p class="card-text">Seleccionamos cuidadosamente cada calabaza y madera para crear mates únicos. Nuestro proceso artesanal garantiza la máxima calidad y durabilidad en cada producto.</p>
-                        <a href="#" class="btn btn-custom">Ver Proceso</a>
+                        <a href="#" class="btn btn-custom" aria-label="Ver nuestro proceso artesanal">Ver Proceso</a>
                     </div>
                 </div>
             </div>
@@ -271,10 +271,10 @@
             <div class="col-lg-2 footer-section">
                 <h5>Productos</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Mates Tradicionales</a></li>
-                    <li><a href="#">Mates de Madera</a></li>
-                    <li><a href="#">Mates Modernos</a></li>
-                    <li><a href="#">Accesorios</a></li>
+                    <li><a href="#" aria-label="Ver mates tradicionales">Mates Tradicionales</a></li>
+                    <li><a href="#" aria-label="Ver mates de madera">Mates de Madera</a></li>
+                    <li><a href="#" aria-label="Ver mates modernos">Mates Modernos</a></li>
+                    <li><a href="#" aria-label="Ver accesorios para mate">Accesorios</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 footer-section">
@@ -307,6 +307,33 @@
     const carouselInstance = new bootstrap.Carousel(carousel, {
     interval: 3000,
     wrap: true
+    });
+</script>
+
+<!-- Script para cerrar el navbar al hacer clic en un enlace (responsive) -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function (e) {
+                if (navbarCollapse.classList.contains('show')) {
+                    e.preventDefault();
+                    navbarToggler.click();
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        setTimeout(function() {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }, 350);
+                    }
+                }
+            });
+        });
     });
 </script>
 
